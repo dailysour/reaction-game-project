@@ -66,6 +66,7 @@ p1Score = 0
 p2Score = 0
 
 #Starts game and if player presses button on time, they get a point
+#uses Booleans to check if the game is on, and only adds a point if the game is on
 def on_forever():
     global gameStart, gamerunning, p1Score, time, p2Score
     if isOn:
