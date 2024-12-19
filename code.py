@@ -1,3 +1,4 @@
+# Displays player 1 score
 def on_button_pressed_a():
     global gameStart
     gameStart = False
@@ -6,6 +7,7 @@ def on_button_pressed_a():
     basic.pause(5000)
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
+# Shows dots across the screen in preparation for the press-button notification
 def scrollDots():
     for index in range(randint(1, 4)):
         basic.show_leds("""
@@ -23,14 +25,14 @@ def scrollDots():
             . # . # .
             """)
 
-
+#Resets high scores
 def on_button_pressed_ab():
     global p1Score, p2Score
     p1Score = 0
     p2Score = 0
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
-
+#Shows player 2 score
 def on_button_pressed_b():
     global gameStart
     gameStart = False
@@ -41,7 +43,7 @@ def on_button_pressed_b():
     basic.clear_screen()
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
-
+#Resets variables
 time = 0
 gamerunning = False
 gameStart = False
@@ -50,7 +52,7 @@ p1Score = 0
 p1Score = 0
 p2Score = 0
 
-
+#Starts game and checks if player one or two has pressed button
 def on_forever():
     global gameStart, gamerunning, p1Score, time, p2Score
     gameStart = False
