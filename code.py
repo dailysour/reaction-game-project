@@ -1,3 +1,4 @@
+#Turns game on/off
 def on_pin_pressed_p0():
     global isOn, gameStart, gamerunning
     if isOn == False:
@@ -8,7 +9,7 @@ def on_pin_pressed_p0():
         gamerunning = False
         basic.clear_screen()
 input.on_pin_pressed(TouchPin.P0, on_pin_pressed_p0)
-
+#Starts game p 1
 def on_button_pressed_a():
     global gameStart
     gameStart = False
@@ -16,7 +17,7 @@ def on_button_pressed_a():
     basic.show_number(p1Score)
     basic.pause(5000)
 input.on_button_pressed(Button.A, on_button_pressed_a)
-
+#Makes dots appear on screen
 def scrollDots():
     for index in range(randint(1, 4)):
         basic.show_leds("""
@@ -34,11 +35,12 @@ def scrollDots():
             . # . # .
             """)
 
+#Resets score
 def on_button_pressed_ab():
     global p1Score
     p1Score = 5
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
-
+#Starts game player 2
 def on_button_pressed_b():
     global gameStart
     gameStart = False
@@ -48,7 +50,7 @@ def on_button_pressed_b():
     gameStart = True
     basic.clear_screen()
 input.on_button_pressed(Button.B, on_button_pressed_b)
-
+#Resets variables
 time = 0
 gamerunning = False
 gameStart = False
@@ -57,7 +59,7 @@ p2Score = 0
 p1Score = 0
 p1Score = 0
 p2Score = 0
-
+#Makes "!" show on the screen, prompting player to push button P1/P2
 def on_forever():
     global gameStart, gamerunning, p1Score, time, p2Score, isOn
     if isOn:
