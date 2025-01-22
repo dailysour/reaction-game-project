@@ -1,4 +1,3 @@
-#When pin 0 pressed if game is off, it will turn on and vice versa
 def on_pin_pressed_p0():
     global isOn, gameStart, gamerunning
     if isOn == False:
@@ -10,7 +9,6 @@ def on_pin_pressed_p0():
         basic.clear_screen()
 input.on_pin_pressed(TouchPin.P0, on_pin_pressed_p0)
 
-#Displays Player 1 score
 def on_button_pressed_a():
     global gameStart
     gameStart = False
@@ -19,7 +17,6 @@ def on_button_pressed_a():
     basic.pause(5000)
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
-#Makes 'dots' appear across the screen for a few seconds before press-button notification shows up
 def scrollDots():
     for index in range(randint(1, 4)):
         basic.show_leds("""
@@ -37,14 +34,11 @@ def scrollDots():
             . # . # .
             """)
 
-#Resets scores
 def on_button_pressed_ab():
-    global p1Score, p2Score
-    p1Score = 0
-    p2Score = 0
+    global p1Score
+    p1Score = 5
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
-#Displays player 2 score
 def on_button_pressed_b():
     global gameStart
     gameStart = False
@@ -55,7 +49,6 @@ def on_button_pressed_b():
     basic.clear_screen()
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
-#Resets variables
 time = 0
 gamerunning = False
 gameStart = False
@@ -65,10 +58,8 @@ p1Score = 0
 p1Score = 0
 p2Score = 0
 
-#Starts game and if player presses button on time, they get a point
-#uses Booleans to check if the game is on, and only adds a point if the game is on
 def on_forever():
-    global gameStart, gamerunning, p1Score, time, p2Score
+    global gameStart, gamerunning, p1Score, time, p2Score, isOn
     if isOn:
         gameStart = False
         basic.pause(randint(1000, 5000))
@@ -107,9 +98,18 @@ def on_forever():
                 time = 0
         basic.pause(3000)
         basic.clear_screen()
+        if p1Score == 5:
+            music._play_default_background(music.built_in_playable_melody(Melodies.POWER_UP),
+                music.PlaybackMode.IN_BACKGROUND)
+            basic.show_string("P1 WINS!")
+            isOn = False
+        if p2Score == 5:
+            music._play_default_background(music.built_in_playable_melody(Melodies.POWER_UP),
+                music.PlaybackMode.IN_BACKGROUND)
+            basic.show_string("P2 WINS")
+            isOn = False
 basic.forever(on_forever)
 
-# 'Tick' System
 def on_every_interval():
     global time
     if gamerunning:
